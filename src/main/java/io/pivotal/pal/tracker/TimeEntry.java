@@ -32,8 +32,20 @@ public class TimeEntry {
         return this.id;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public long getProjectId() {
+        return projectId;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public int getHours() {
+        return hours;
     }
 
     public boolean equals(Object o) {
@@ -47,11 +59,11 @@ public class TimeEntry {
     }
 
     public String toString() {
-        return "TimeEntry(projectId=" + projectId +
+        return "TimeEntry(id=" + id +
+                ", projectId=" + projectId +
                 ", userId=" + userId +
                 ", date=" + date +
                 ", hours=" + hours +
                 ")";
-
     }
 }

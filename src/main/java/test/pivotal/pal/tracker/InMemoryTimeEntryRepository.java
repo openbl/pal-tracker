@@ -13,10 +13,18 @@ public class InMemoryTimeEntryRepository implements TimeEntryRepository {
     private Map<Long, TimeEntry> store = new HashMap<>();
 
     public TimeEntry create(TimeEntry timeEntry) {
-        timeEntry.setId(nextTimeEntryId);
-        store.put(nextTimeEntryId, timeEntry);
+        final TimeEntry newTimeEntry = new TimeEntry(
+                nextTimeEntryId,
+                timeEntry.getProjectId(),
+                timeEntry.getUserId(),
+                timeEntry.getDate(),
+                timeEntry.getHours()
+        );
+
+        store.put(nextTimeEntryId, newTimeEntry);
         nextTimeEntryId += 1;
-        return timeEntry;
+
+        return newTimeEntry;
     }
 
     public TimeEntry find(long timeEntryId) {
@@ -28,10 +36,17 @@ public class InMemoryTimeEntryRepository implements TimeEntryRepository {
     }
 
     public TimeEntry update(long timeEntryId, TimeEntry timeEntry) {
-        final TimeEntry old = store.get(timeEntryId);
-        timeEntry.setId(old.getId());
-        store.put(timeEntry.getId(), timeEntry);
-        return timeEntry;
+        final TimeEntry updatedTimeEntry = new TimeEntry(
+                timeEntryId,
+                timeEntry.getProjectId(),
+                timeEntry.getUserId(),
+                timeEntry.getDate(),
+                timeEntry.getHours()
+        );
+
+        store.put(timeEntryId, updatedTimeEntry);
+
+        return updatedTimeEntry;
     }
 
     public void delete(long timeEntryId) {
